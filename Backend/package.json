@@ -1,12 +1,18 @@
 {
-  "name": "backend",
+  "name": "task_management_system_backend",
   "version": "1.0.0",
+  "description": "backend for task management system",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "keywords": [
+    "task_management",
+    "express",
+    "mongodb",
+    "javascript",
+    "backend"
+  ],
+  "author": "Harsh Korde",
+  "license": "ISC"
 }
