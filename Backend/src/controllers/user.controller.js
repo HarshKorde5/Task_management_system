@@ -6,8 +6,6 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
 
 import { User } from "../models/user.model.js"
-import { Task } from "../models/task.model.js"
-import { Team } from "../models/team.model.js"
 
 const generateAccessAndRefereshTokens = async(userId) =>{
     try {
@@ -250,35 +248,7 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
     .json(new ApiResponse(200, user, "Account details updated successfully"))
 });
 
-const getAllTasks = asyncHandler( async(req, res) => {
-    
-    const tasks = await Task.find({assignedTo: req.user?._id})
-    .select("-assignedTo")
 
-    if(tasks.length == 0){
-        throw new ApiError(404,"No user tasks found")
-    }
-
-    return res
-    .status(200)
-    .json(new ApiResponse(200, tasks, "All user tasks fetched successfully"))
-
-});
-
-
-const getAllTeams = asyncHandler( async(req, res) => {
-    
-    const teams = await Team.find({members: req.user?._id})
-
-    if(teams.length === 0){
-        throw new ApiError(404,"No user teams found")
-    }
-
-    return res
-    .status(200)
-    .json(new ApiResponse(200, teams, "All user teams fetched successfully"))
-
-});
 
 export {
     registerUser,
@@ -288,6 +258,4 @@ export {
     changeCurrentPassword,
     getCurrentUser,
     updateAccountDetails,
-    getAllTasks,
-    getAllTeams,
 }
