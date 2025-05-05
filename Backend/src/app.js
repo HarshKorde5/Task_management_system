@@ -16,4 +16,16 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}));       //converts u
 app.use(express.static("public"));      //store files,images,data on the server side in public folder
 app.use(cookieParser());
 
+
+//routes import
+
+import userRouter from './routes/user.routes.js';
+
+//routes decalration
+// app.use("/users",userRouter);
+app.use("/api/v1/users",userRouter);
+
+// http://localhost:8000/api/v1/users/register
+
+
 export {app};
