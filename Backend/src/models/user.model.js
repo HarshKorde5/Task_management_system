@@ -27,18 +27,6 @@ const userSchema = new Schema({
     refreshToken : {
         type: String,
     },
-    teams: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Team"
-        }
-    ],
-    tasks: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Task"
-        }
-    ],
 }, {timestamps : true});
 
 userSchema.pre("save", async function(next) {
