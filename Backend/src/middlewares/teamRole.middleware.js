@@ -1,4 +1,5 @@
 import { Team } from "../models/Team.js";
+import { Task } from "../models/task.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 
@@ -10,10 +11,21 @@ const ROLE_LEVEL = {
 };
 
 export const checkTeamAccess = ({ minRole = "member", exactRole = null } = {}) => asyncHandler(async (req, _, next) => {
-  const { teamId } = req.params;
+  const { teamId, taskId } = req.params;
   const userId = req.user._id;
+  let team;
 
-  const team = await Team.findById(teamId);
+  if (taskId) {
+    const task = await Task.findById(taskId).select("team");
+
+    if (!task) {
+      throw new ApiError(404, "Task not found");
+    }
+
+    team = await Team.findById(task.team).select("owner roles members");
+  } else if (teamId) {
+    team = await Team.findById(teamId).select("owner roles members");
+  }
 
   if (!team) {
     throw new ApiError(404, "Team not found");
